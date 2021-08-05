@@ -92,14 +92,52 @@ var manageObjectContext: NSManagedObjectContext?
         return cell
     }
     
+    @IBAction func deleteButton(_ sender: Any) {
+      // let alertController = UIAlertController(title: "Delete all", message: "Would you like to delete all items?", preferredStyle: .alert)
+        
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
+       // let addActionButton = UIAlertAction(title: "Delete", style: .default)
+      
+        //MARK: -delete button errors
+       //Version No1
+        //func deleteAllRecords() {
+          //      //getting context from your Core Data Manager Class
+            //    let managedContext = CoreDataManager.getContext()
+              ///  let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Your entity name")
+                //let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+                //do {
+                  //  try managedContext.execute(deleteRequest)
+                    //try managedContext.save()
+                //} catch {
+                  //  print ("There is an error in deleting records")
+                //}
+        //}
+        
+        //Version No2
+      //  func deleteAllData(entity: String) {
+            
+       // let appDelegate = UIApplication.shared.delegate as! AppDelegate
+       // let managedContext = appDelegate.managedObjectContext
+       // let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+       // fetchRequest.returnsObjectsAsFaults = false
+
+       // do
+        //{
+          //  let results = try managedContext.executeFetchRequest(fetchRequest)
+          //  for managedObject in results
+          //  {
+               // let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
+               // managedContext.deleteObject(managedObjectData)
+           // }
+       // } catch let error as NSError {
+          //  print("Detele all data in \(entity) error : \(error) \(error.userInfo)")
+        
+        }
+    
+    
+
+   
+    
 
 //MARK: - Table view delegate
     // Override to support editing the table view.
@@ -122,12 +160,13 @@ var manageObjectContext: NSManagedObjectContext?
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "groceryList"{
             let vc = segue.destination as! InfoViewController
-            vc.infoText = "Grocery Shopping List items are saving inside The Core Data."
-            vc.info2Text = "You can add Item by clicking on the 'cart' symbol and you can delete it by clicking on the 'trash' symbol"
+            vc.infoText = "Grocery Shopping List items\nare saving inside The Core Data."
+            vc.info2Text = "You can add Item by clicking\non the 'cart' symbol and you can\ndelete it by clicking on the 'trash' symbol"
     
     }
 
     }
-    
+
+
 }
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class InfoViewController: UITableViewController {
+class InfoViewController: UIViewController {
 
     @IBOutlet weak var appInfoLabel1: UILabel!
     
@@ -31,7 +31,6 @@ class InfoViewController: UITableViewController {
     @IBAction func openSettings(_ sender: Any) {
     }
     func openSettings(){
-        func openSetting(){
             guard let settingURL = URL(string: UIApplication.openSettingsURLString) else {
                 return
             }
@@ -43,5 +42,5 @@ class InfoViewController: UITableViewController {
             }
     }
 }
-}
+
 
