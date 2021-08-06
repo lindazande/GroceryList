@@ -9,6 +9,10 @@ import UIKit
 
 class InfoViewController: UIViewController {
 
+    
+    @IBOutlet weak var closeButtonTapped: UIButton! {
+        self.dismiss(animated: true, completion: nil)
+    }
     @IBOutlet weak var appInfoLabel1: UILabel!
     
     @IBOutlet weak var appInfoLabel2: UILabel!
