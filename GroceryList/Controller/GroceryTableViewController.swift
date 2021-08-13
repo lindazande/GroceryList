@@ -42,7 +42,18 @@ var manageObjectContext: NSManagedObjectContext?
         }
         loadData()
     }
-    
+    //MARK: "delete" errors
+    func deleteAllData() {
+   // let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Grocery")
+     //  let request: NSBatchDeleteResult = NSBatchDeleteResult(fetchRequest: fetchRequest)
+       // do {
+        //    try manageObjectContext?.execute(request)
+            saveData()
+      //  } catch let error {
+           // print(error.localizedDescription)
+            
+       // }
+    }
        @IBAction func addNewItem(_ sender: Any) {
     
 
@@ -62,7 +73,8 @@ var manageObjectContext: NSManagedObjectContext?
             //  self.groceries.append(textField!.text!)
             //self.tableView.reloadData()
             
-        }//add action
+        }
+        //add action
         let cancelButton = UIAlertAction(title: "cancel", style: .destructive, handler: nil)
         
         alertController.addAction(addActionButton)
@@ -70,74 +82,44 @@ var manageObjectContext: NSManagedObjectContext?
          present(alertController, animated: true, completion: nil)
     }
     
-    // MARK: - Table view data source
-
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return groceries.count
-    }
-
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "shoppingCell", for: indexPath)
-
-        
-        //cell.textLabel?.text = groceries[indexPath.row]
-        let grocery = groceries[indexPath.row]
-        
-        cell.textLabel?.text = grocery.value(forKey: "item") as? String
-        cell.accessoryType = grocery.completed ? .checkmark : .none
-
-        return cell
-    }
     
     @IBAction func deleteButton(_ sender: Any) {
-      // let alertController = UIAlertController(title: "Delete all", message: "Would you like to delete all items?", preferredStyle: .alert)
+      let alertController = UIAlertController(title: "Delete all", message: "Would you like to delete all items?", preferredStyle: .actionSheet)
         
 
-       // let addActionButton = UIAlertAction(title: "Delete", style: .default)
-      
-        //MARK: -delete button errors
-       //Version No1
-        //func deleteAllRecords() {
-          //      //getting context from your Core Data Manager Class
-            //    let managedContext = CoreDataManager.getContext()
-              ///  let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Your entity name")
-                //let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
-                //do {
-                  //  try managedContext.execute(deleteRequest)
-                    //try managedContext.save()
-                //} catch {
-                  //  print ("There is an error in deleting records")
-                //}
-        //}
-        
-        //Version No2
-      //  func deleteAllData(entity: String) {
-            
-       // let appDelegate = UIApplication.shared.delegate as! AppDelegate
-       // let managedContext = appDelegate.managedObjectContext
-       // let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
-       // fetchRequest.returnsObjectsAsFaults = false
-
-       // do
-        //{
-          //  let results = try managedContext.executeFetchRequest(fetchRequest)
-          //  for managedObject in results
-          //  {
-               // let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
-               // managedContext.deleteObject(managedObjectData)
-           // }
-       // } catch let error as NSError {
-          //  print("Detele all data in \(entity) error : \(error) \(error.userInfo)")
-        
+        let addActionButton = UIAlertAction(title: "Delete", style: .default) { alertAction in self.deleteAllData()
         }
-    
-    
+            
+            let cancelButton = UIAlertAction(title: "cancel", style: .destructive, handler: nil)
+            
+            alertController.addAction(addActionButton)
+            alertController.addAction(cancelButton)
+            
+            present(alertController, animated: true, completion: nil)
+        }
+        // MARK: - Table view data source
 
-   
-    
+
+        override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            // #warning Incomplete implementation, return the number of rows
+            return groceries.count
+        }
+
+        
+        override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "shoppingCell", for: indexPath)
+
+            
+            //cell.textLabel?.text = groceries[indexPath.row]
+            let grocery = groceries[indexPath.row]
+            
+            cell.textLabel?.text = grocery.value(forKey: "item") as? String
+            cell.accessoryType = grocery.completed ? .checkmark : .none
+
+            return cell
+        }
+        
 
 //MARK: - Table view delegate
     // Override to support editing the table view.
@@ -156,17 +138,16 @@ var manageObjectContext: NSManagedObjectContext?
     }
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "groceryList"{
-            let vc = segue.destination as! InfoViewController
-            vc.infoText = "Grocery Shopping List items\nare saving inside The Core Data."
-            vc.info2Text = "You can add Item by clicking\non the 'cart' symbol and you can\ndelete it by clicking on the 'trash' symbol"
+    //In a storyboard-based application, you will often want to do a little preparation before navigation
+override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "groceryList"{
+          let vc = segue.destination as! InfoViewController
+           vc.infoText = "Grocery Shopping List items\nare saving inside The Core Data."
+           vc.info2Text = "You can add Item by clicking\non the 'cart' symbol and you can\ndelete it by clicking on the 'trash' symbol"
     
-    }
+   }
 
-    }
-
+}
 
 }
     
